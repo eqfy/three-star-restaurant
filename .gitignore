@@ -40,7 +40,7 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
+# node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files
@@ -83,7 +83,7 @@ local.json
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
-dist
+# dist
 # Gatsby files
 .cache/
 
