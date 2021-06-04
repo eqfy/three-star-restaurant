@@ -1,0 +1,23 @@
+{
+  "name": "3-star-restaurant-backend",
+  "version": "1.0.0",
+  "description": "Backend for our restaurant application",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CPSC 304 S21 Team 20",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pg": "^8.6.0",
+    "yarn": "^1.22.10"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.12",
+    "errorhandler": "^1.5.1",
+    "typescript": "^4.3.2"
+  }
+}
