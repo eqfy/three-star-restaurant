@@ -12,6 +12,6 @@ Note: If on Mac, you can also install PostgreSQL using Homebrew.
 * Type `\i dbInit.sql` to run the dbInit.sql script. Once our applications tables are successfully created, `exit;`
 5. While on the backend root directory, create a new `.env` file and add the following variable: `DATABASE_URL = "postgres://<your-psql-username>:'<your-psql-password>'@localhost:5432/<threestarrestaurant>"`
 6. Test that your backend server and postgres was set up correctly by:
-* Navigate to the backend directory and start the backend server `yarn start`
+* Navigate to the backend directory and 1) Install node modules `yarn install` 2) start the backend server `yarn start`
 * Send a request via your browser (or Postman) to `http://localhost:3001/testDBConnection`
 * If everything went smoothly, you should see a list of restaurants currently in the restaurant table
