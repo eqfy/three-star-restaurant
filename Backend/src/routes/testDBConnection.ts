@@ -1,10 +1,10 @@
-import db from "../db";
+import db from '../db';
 
 export function testDBConnection(response: any): void {
-  db.query("SELECT * FROM restaurant")
-    .then((res) => response.status(201).send(res.rows))
-    .catch((err) => {
-      console.error(err);
-      response.status(500).send("Error: SELECT query failed").end();
-    });
+    db.query('SELECT * FROM restaurant')
+        .then((res) => response.status(201).send(res.rows))
+        .catch((err) => {
+            console.error(err);
+            response.status(500).send('Error: SELECT query failed').end();
+        });
 }
