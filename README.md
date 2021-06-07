@@ -9,7 +9,7 @@ Note: If on Mac, you can also install PostgreSQL using Homebrew.
 * Type `CREATE DATABASE threestarrestaurant;` then `exit;`. Note: DB name must be lowercase.
 4. Navigate to the project backend root directory and run the following commands:  
 * Open the PSQL terminal by typing `psql threestarrestaurant`
-* Type `\i dbInit.sql` to run the dbInit.sql script. Once our applications tables are successfully created, `exit;`
+* Type `\i sql/dbInit.sql` then type `\i sql/dpPopulate.sql` to create and populate tables. Once completed, enter `exit;`
 5. While on the backend root directory, create a new `.env` file and add the following variable: `DATABASE_URL = "postgres://<your-psql-username>:'<your-psql-password>'@localhost:5432/<threestarrestaurant>"`
 6. Test that your backend server and postgres was set up correctly by:
 * Navigate to the backend directory and 1) Install node modules `yarn install` 2) start the backend server `yarn start`
