@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS ingredient (
     FOREIGN KEY (dish_info_name) REFERENCES dish_info(name)
         ON DELETE CASCADE
         ON UPDATE CASCADE,
-    FOREIGN KEY (type) REFERENCES ingredient_type(type)
+    FOREIGN KEY (type) REFERENCES ingredient_storage(type)
         ON DELETE NO ACTION
         ON UPDATE CASCADE
 );
