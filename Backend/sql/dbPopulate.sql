@@ -15,7 +15,6 @@ INSERT INTO address_info(city,street_name,postal_code) VALUES ('Vancouver','3005
 INSERT INTO address_info(city,street_name,postal_code) VALUES ('Vancouver','820 W Broadway','V6K2G9') ON CONFLICT DO NOTHING;
 INSERT INTO address_info(city,street_name,postal_code) VALUES ('Vancouver','2450 Yukon St','V5Y0A4') ON CONFLICT DO NOTHING;
 INSERT INTO address_info(city,street_name,postal_code) VALUES ('Vancouver','6111 University Blvd','V6T0C7') ON CONFLICT DO NOTHING;
-INSERT INTO address_info(city,street_name,postal_code) VALUES ('Vancouver','6111 University Blvd','V6T0C8') ON CONFLICT DO NOTHING;
 INSERT INTO address_info(city,street_name,postal_code) VALUES ('Surrey','8282 Avenue','G1V5X1') ON CONFLICT DO NOTHING;
 INSERT INTO address_info(city,street_name,postal_code) VALUES ('Burnaby','1205 Avenue','P5L4A2') ON CONFLICT DO NOTHING;
 INSERT INTO address_info(city,street_name,postal_code) VALUES ('North Vancouver','9124 Street','Z1C2F4') ON CONFLICT DO NOTHING;
@@ -56,8 +55,7 @@ INSERT INTO menu(name,description) VALUES ('Kids','Recommended dishes for childr
 INSERT INTO menu(name,description) VALUES ('Dessert','Sweet courses eaten at the end of the meal') ON CONFLICT DO NOTHING;
 INSERT INTO menu(name,description) VALUES ('Power Salads','All the salads to power you through the day') ON CONFLICT DO NOTHING;
 
-
-INSERT INTO manager(eid,employment_date,salary,name,res_id,managesres_id,city,street_name) VALUES (1,'23-Jun-05',88750,'Kristel Burke',1,1,'Burnaby','6111 University Blvd') ON CONFLICT DO NOTHING;
+INSERT INTO manager(eid,employment_date,salary,name,res_id,managesres_id,city,street_name) VALUES (1,'23-Jun-05',88750,'Kristel Burke',1,1,'Vancouver','6111 University Blvd') ON CONFLICT DO NOTHING;
 INSERT INTO manager(eid,employment_date,salary,name,res_id,managesres_id,city,street_name) VALUES (5,'30-Jun-05',72000,'Borislav Montagne',1,2,'Surrey','8282 Avenue') ON CONFLICT DO NOTHING;
 INSERT INTO manager(eid,employment_date,salary,name,res_id,managesres_id,city,street_name) VALUES (10,'02-Jan-06',74550,'Pora Cinege',2,3,'Burnaby','1205 Avenue') ON CONFLICT DO NOTHING;
 INSERT INTO manager(eid,employment_date,salary,name,res_id,managesres_id,city,street_name) VALUES (11,'25-May-06',81000,'Nora Cardona',3,4,'North Vancouver','9124 Street') ON CONFLICT DO NOTHING;
@@ -122,7 +120,7 @@ INSERT INTO restaurant_order(OID,status,created_on,waiter_id) VALUES (10005,'Rea
 
 INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10001,10001,NULL,1,'Complete','EntreeB',2) ON CONFLICT DO NOTHING;
 INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10002,10001,NULL,1,'Complete','Fries',3) ON CONFLICT DO NOTHING;
-INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10003,10001,NULL,2,'Complete','SeasonedFresh',8) ON CONFLICT DO NOTHING;
+INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10003,10001,NULL,2,'Complete','Seasoned Fresh',8) ON CONFLICT DO NOTHING;
 INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10004,10002,NULL,1,'Complete','EntreeB',12) ON CONFLICT DO NOTHING;
 INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10005,10002,NULL,1,'Complete','Fries',15) ON CONFLICT DO NOTHING;
 INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10006,10003,'No carrots!',1,'In Progress','Coattree',3) ON CONFLICT DO NOTHING;
@@ -130,7 +128,7 @@ INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info
 INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10008,10004,NULL,1,'Ready','AppetizerB',2) ON CONFLICT DO NOTHING;
 INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10009,10005,NULL,3,'Ready','Tempura',3) ON CONFLICT DO NOTHING;
 
-INSERT INTO menu_dish_info(menu_name,dish_info_name) VALUES ('Starters','SeasonedFresh') ON CONFLICT DO NOTHING;
+INSERT INTO menu_dish_info(menu_name,dish_info_name) VALUES ('Starters','Seasoned Fresh') ON CONFLICT DO NOTHING;
 INSERT INTO menu_dish_info(menu_name,dish_info_name) VALUES ('Starters','Fries') ON CONFLICT DO NOTHING;
 INSERT INTO menu_dish_info(menu_name,dish_info_name) VALUES ('Power Salads','Coattree') ON CONFLICT DO NOTHING;
 INSERT INTO menu_dish_info(menu_name,dish_info_name) VALUES ('Brunch','Marishrimp') ON CONFLICT DO NOTHING;
