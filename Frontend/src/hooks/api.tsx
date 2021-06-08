@@ -20,3 +20,10 @@ export function useMenuDishInfo(menuName: string) {
     return res.json();
   });
 }
+
+export function useDishInfoIngredient(dishInfoName: string) {
+  return useQuery(['ingredients', dishInfoName], async () => {
+    const res = await fetch(`http://localhost:3001/ingredients?dish_info_name=${dishInfoName}`);
+    return res.json();
+  });
+}
