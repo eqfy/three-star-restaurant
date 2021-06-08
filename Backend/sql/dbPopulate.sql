@@ -73,17 +73,17 @@ INSERT INTO chef(eid,employment_date,salary,name,res_id,city,street_name) VALUES
 INSERT INTO chef(eid,employment_date,salary,name,res_id,city,street_name) VALUES (12,'09-Jun-06',27000,'Gunnhild Kirby',4,'Richmond','6476 Blvd') ON CONFLICT DO NOTHING;
 INSERT INTO chef(eid,employment_date,salary,name,res_id,city,street_name) VALUES (15,'29-Jun-06',35000,'Berenike D''Angelo',5,'Burnaby','5906 Street') ON CONFLICT DO NOTHING;
 
-INSERT INTO dish_info(name,description) VALUES ('Seasoned Fresh','Fresh seafood seasoned with olive oils') ON CONFLICT DO NOTHING;
-INSERT INTO dish_info(name,description) VALUES ('EntreeB','Action packed thriller! Fun for the whole family') ON CONFLICT DO NOTHING;
-INSERT INTO dish_info(name,description) VALUES ('Fries','Fries. And salt.') ON CONFLICT DO NOTHING;
-INSERT INTO dish_info(name,description) VALUES ('Coattree','Fresh cottage cheese cooked with vegetables') ON CONFLICT DO NOTHING;
-INSERT INTO dish_info(name,description) VALUES ('AppetizerB','This shelf-and-hook storage in black metal has a ledge to keep your things in place.') ON CONFLICT DO NOTHING;
-INSERT INTO dish_info(name,description) VALUES ('Tempura','2pc prawn tempura, cucumber, and crab meat topped with teriyaki sauce & honey mustard') ON CONFLICT DO NOTHING;
-INSERT INTO dish_info(name,description) VALUES ('Marishrimp','An Entree salad of chili and garlic marinated shrimp & lobster meat') ON CONFLICT DO NOTHING;
-INSERT INTO dish_info(name,description) VALUES ('LimeJuice','A well-made version is a fresh mix of lime juice and tequila, with a hint of sweetener') ON CONFLICT DO NOTHING;
-INSERT INTO dish_info(name,description) VALUES ('Coca-cola','Half coca-cola and half water') ON CONFLICT DO NOTHING;
-INSERT INTO dish_info(name,description) VALUES ('Choca','Chocolate ice cream') ON CONFLICT DO NOTHING;
-INSERT INTO dish_info(name,description) VALUES ('Oreo Jar','Whipped Orio cheescake with crushed oreos') ON CONFLICT DO NOTHING;
+INSERT INTO dish_info(name,description,price) VALUES ('Seasoned Fresh','Fresh seafood seasoned with olive oils', 21.99) ON CONFLICT DO NOTHING;
+INSERT INTO dish_info(name,description,price) VALUES ('EntreeB','Action packed thriller! Fun for the whole family', 16.50) ON CONFLICT DO NOTHING;
+INSERT INTO dish_info(name,description,price) VALUES ('Fries','Fries. And salt.', 8.99) ON CONFLICT DO NOTHING;
+INSERT INTO dish_info(name,description,price) VALUES ('Coattree','Fresh cottage cheese cooked with vegetables', 24.99) ON CONFLICT DO NOTHING;
+INSERT INTO dish_info(name,description,price) VALUES ('AppetizerB','This shelf-and-hook storage in black metal has a ledge to keep your things in place.', 18.99) ON CONFLICT DO NOTHING;
+INSERT INTO dish_info(name,description,price) VALUES ('Tempura','2pc prawn tempura, cucumber, and crab meat topped with teriyaki sauce & honey mustard', 12.99) ON CONFLICT DO NOTHING;
+INSERT INTO dish_info(name,description,price) VALUES ('Marishrimp','An Entree salad of chili and garlic marinated shrimp & lobster meat', 38.99) ON CONFLICT DO NOTHING;
+INSERT INTO dish_info(name,description,price) VALUES ('LimeJuice','A well-made version is a fresh mix of lime juice and tequila, with a hint of sweetener', 12.99) ON CONFLICT DO NOTHING;
+INSERT INTO dish_info(name,description,price) VALUES ('Coca-cola','Half coca-cola and half water', 6.99) ON CONFLICT DO NOTHING;
+INSERT INTO dish_info(name,description,price) VALUES ('Choca','Chocolate ice cream', 5.99) ON CONFLICT DO NOTHING;
+INSERT INTO dish_info(name,description,price) VALUES ('Oreo Jar','Whipped Orio cheescake with crushed oreos', 6.99) ON CONFLICT DO NOTHING;
 
 INSERT INTO chef_dish_info(eid,dish_name) VALUES (2,'Seasoned Fresh') ON CONFLICT DO NOTHING;
 INSERT INTO chef_dish_info(eid,dish_name) VALUES (2,'EntreeB') ON CONFLICT DO NOTHING;
