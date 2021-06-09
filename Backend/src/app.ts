@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { testDBConnection } from './routes/testDBConnection';
 import { getDishInfoInMenu, getMenus } from './routes/menus';
+import { getEmployee } from './routes/employees';
 
 const app = express();
 app.use(express.json()); // for parsing application/json
@@ -25,6 +26,10 @@ app.get('/menus', (req, res) => {
     } else {
         getMenus(res);
     }
+});
+
+app.get('/employee', (req, res) => {
+    getEmployee(req, res);
 });
 
 export default app;
