@@ -3,6 +3,8 @@ import cors from 'cors';
 import { testDBConnection } from './routes/testDBConnection';
 import { getDishInfoInMenu, getMenus } from './routes/menus';
 import { getEmployee } from './routes/employees';
+import { getDishInfo } from './routes/dishinfo';
+import { getDishInfoIngredients, getIngredients } from './routes/ingredients';
 
 const app = express();
 app.use(express.json()); // for parsing application/json
@@ -25,6 +27,18 @@ app.get('/menus', (req, res) => {
         getDishInfoInMenu(`${req.query.menu_name}`, res);
     } else {
         getMenus(res);
+    }
+});
+
+app.get('/dishinfo', (req, res) => {
+    getDishInfo(res);
+});
+
+app.get('/ingredients', (req, res) => {
+    if (req.query.dish_info_name) {
+        getDishInfoIngredients(res, `${req.query.dish_info_name}`);
+    } else {
+        getIngredients(res);
     }
 });
 
