@@ -10,6 +10,7 @@
   "author": "CPSC 304 S21 Team 20",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "pg": "^8.6.0",

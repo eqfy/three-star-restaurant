@@ -1,10 +1,13 @@
 import express from 'express';
+import cors from 'cors';
 import { testDBConnection } from './routes/testDBConnection';
 import { getDishInfoInMenu, getMenus } from './routes/menus';
 
 const app = express();
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cors());
+
 // Express configuration
 app.set('port', process.env.PORT || 3001);
 
