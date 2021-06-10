@@ -1,6 +1,7 @@
 import db from '../db';
+import { ExpressResponse } from '../types/expressTypes';
 
-export function getIngredients(response: any): void {
+export function getIngredients(response: ExpressResponse): void {
     db.query(`SELECT * FROM ingredient`)
         .then((res) => response.status(201).send(res.rows))
         .catch((err) => {
@@ -9,7 +10,7 @@ export function getIngredients(response: any): void {
         });
 }
 
-export function getDishInfoIngredients(response: any, dish_info_name: string): void {
+export function getDishInfoIngredients(response: ExpressResponse, dish_info_name: string): void {
     db.query(`SELECT * FROM ingredient WHERE dish_info_name='${dish_info_name}'`)
         .then((res) => response.status(201).send(res.rows))
         .catch((err) => {

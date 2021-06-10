@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { testDBConnection } from './routes/testDBConnection';
 import { getDishInfoInMenu, getMenus } from './routes/menus';
+import { getEmployee } from './routes/employees';
 import { getDishInfo } from './routes/dishinfo';
 import { getDishInfoIngredients, getIngredients } from './routes/ingredients';
 
@@ -39,6 +40,10 @@ app.get('/ingredients', (req, res) => {
     } else {
         getIngredients(res);
     }
+});
+
+app.get('/employee', (req, res) => {
+    getEmployee(req, res);
 });
 
 export default app;
