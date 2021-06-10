@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormLabel,
   makeStyles,
+  Paper,
 } from '@material-ui/core';
 import MaterialTable from 'material-table';
 import { FunctionComponent, useState } from 'react';
@@ -15,8 +16,12 @@ const useStyles = makeStyles({
   page: {
     margin: 10,
   },
-  ckboxForm: {
+  ckboxWrapper: {
     marginLeft: 20,
+    marginRight: 20,
+  },
+  ckboxForm: {
+    margin: 10,
   },
   table: {
     margin: 20,
@@ -42,25 +47,29 @@ const EmployeePage: FunctionComponent = (props) => {
 
   return (
     <div className={classes.page}>
-      <FormControl component="fieldset" className={classes.ckboxForm}>
-        <FormLabel component="legend">Select a employee type</FormLabel>
-        <FormGroup row>
-          <FormControlLabel
-            control={
-              <Checkbox checked={employeeTypes.manager} onChange={handleChange('manager')} />
-            }
-            label="Manager"
-          />
-          <FormControlLabel
-            control={<Checkbox checked={employeeTypes.chef} onChange={handleChange('chef')} />}
-            label="Chef"
-          />
-          <FormControlLabel
-            control={<Checkbox checked={employeeTypes.waiter} onChange={handleChange('waiter')} />}
-            label="Waiter"
-          />
-        </FormGroup>
-      </FormControl>
+      <Paper className={classes.ckboxWrapper}>
+        <FormControl component="fieldset" className={classes.ckboxForm}>
+          <FormLabel component="legend">Select a employee type</FormLabel>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Checkbox checked={employeeTypes.manager} onChange={handleChange('manager')} />
+              }
+              label="Manager"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={employeeTypes.chef} onChange={handleChange('chef')} />}
+              label="Chef"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox checked={employeeTypes.waiter} onChange={handleChange('waiter')} />
+              }
+              label="Waiter"
+            />
+          </FormGroup>
+        </FormControl>
+      </Paper>
       <div className={classes.table}>
         <MaterialTable
           columns={[
