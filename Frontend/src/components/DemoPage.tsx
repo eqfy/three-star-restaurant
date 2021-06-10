@@ -6,18 +6,21 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import backgroundImage from '../assets/background-image.jpg';
+import { useUserRole } from '../hooks/useUserRole';
+import { useHistory } from 'react-router-dom';
 
 export default function DemoPage() {
   const classes = useStyles();
+  const history = useHistory();
 
-  const [role, setRole] = React.useState('');
+  const { setUserRole } = useUserRole();
 
   const handleChange = (event: any) => {
-    setRole(event.target.value);
+    setUserRole(event.target.value);
   };
 
   const navigateToMainPage = () => {
-    // pass role to next page
+    history.push('/menus');
   };
 
   return (
