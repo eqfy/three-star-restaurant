@@ -49,7 +49,7 @@ const EmployeePage: FunctionComponent = (props) => {
     <div className={classes.page}>
       <Paper className={classes.ckboxWrapper}>
         <FormControl component="fieldset" className={classes.ckboxForm}>
-          <FormLabel component="legend">Select a employee type</FormLabel>
+          <FormLabel component="legend">Select an employee type</FormLabel>
           <FormGroup row>
             <FormControlLabel
               control={

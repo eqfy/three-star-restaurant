@@ -10,7 +10,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* TODO: put some routing options in here */}
-      {/* <EmployeePage/> */}
+      {/* <EmployeePage /> */}
       {/* <MenusPage/> */}
     </QueryClientProvider>
   );
