@@ -20,9 +20,7 @@ const db = {
         const release = client.release;
         // set a timeout of 5 seconds, after which we will log this client's last query
         const timeout = setTimeout(() => {
-            console.error(
-                'A client has been checked out for more than 5 seconds!'
-            );
+            console.error('A client has been checked out for more than 5 seconds!');
             console.error(
                 // @ts-ignore
                 `The last executed query on this client was: ${client.lastQuery}`
