@@ -1,6 +1,7 @@
 import db from '../db';
+import { ExpressResponse } from '../types/expressTypes';
 
-export function testDBConnection(response: any): void {
+export function testDBConnection(response: ExpressResponse): void {
     db.query('SELECT * FROM restaurant')
         .then((res) => response.status(201).send(res.rows))
         .catch((err) => {

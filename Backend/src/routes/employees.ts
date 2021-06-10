@@ -1,7 +1,7 @@
 import db from '../db';
-import { Request, Response } from '../types/expressTypes';
+import { ExpressRequest, ExpressResponse } from '../types/expressTypes';
 
-export function getEmployee(request: Request, response: Response): void {
+export function getEmployee(request: ExpressRequest, response: ExpressResponse): void {
     const employeeTypes = request.query.type;
     let queryString = '';
     if (employeeTypes) {
