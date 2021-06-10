@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { testDBConnection } from './routes/testDBConnection';
 import { getDishInfoInMenu, getMenus } from './routes/menus';
 import { getDishInfo } from './routes/dishinfo';
@@ -7,6 +8,8 @@ import { getDishInfoIngredients, getIngredients } from './routes/ingredients';
 const app = express();
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cors()); // accept CORS for local development
+
 // Express configuration
 app.set('port', process.env.PORT || 3001);
 
