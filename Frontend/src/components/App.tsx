@@ -1,8 +1,8 @@
-import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import '../styles/App.css';
-import EmployeePage from './EmployeePage';
-import { MenusPage } from './MenusPage';
+// import EmployeePage from './EmployeePage';
+// import { MenusPage } from './MenusPage';
+import DemoPage from './DemoPage';
 
 const queryClient = new QueryClient();
 
@@ -12,6 +12,7 @@ function App() {
       {/* TODO: put some routing options in here */}
       {/* <EmployeePage /> */}
       {/* <MenusPage/> */}
+      <DemoPage />
     </QueryClientProvider>
   );
 }
