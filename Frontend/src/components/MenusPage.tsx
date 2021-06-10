@@ -1,4 +1,4 @@
-import { AppBar, Container, makeStyles, Tab, Tabs } from '@material-ui/core';
+import { Toolbar, Container, makeStyles, Tab, Tabs } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useMenus } from '../hooks/api';
 import { MenuPage } from './MenuPage';
@@ -48,12 +48,12 @@ export const MenusPage: React.FC = () => {
 
   return (
     <div>
-      <AppBar>
+      <Toolbar>
         <Tabs value={value} onChange={handleChange}>
           {menuData !== undefined &&
             menuData.map((menu: any) => <Tab label={menu.name} id={menu.name} key={menu.name} />)}
         </Tabs>
-      </AppBar>
+      </Toolbar>
       {menuData !== undefined &&
         menuData.map((menu: any, i: number) => (
           <TabPanel value={value} index={i}>
