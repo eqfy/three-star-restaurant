@@ -73,16 +73,3 @@ export function projectOrders(request: ExpressRequest, response: ExpressResponse
         response.status(500).send('Error: ORDER PROJECTION query failed').end();
     });
 }
-
-export function getOrderCount(request: ExpressRequest, response: ExpressResponse): void {
-    db.query(
-        `SELECT COUNT(*) FROM restaurant_order`,
-    )
-    .then((res) => {
-        response.status(201).send(res.rows);
-    })
-    .catch((err) => {
-        console.error(err);
-        response.status(500).send('Error: ORDER COUNT query failed').end();
-    });
-}
