@@ -1,29 +1,23 @@
 import { useQuery } from 'react-query';
-
-/* Note: how to use:
- *
- * const { data, isLoading } = useMenus();
- * if (!isLoading)
- *     console.log(data["Happy Hour"]);
- */
+import { DB_BASE_URL } from '../common/constants';
 
 export function useMenus() {
   return useQuery('menus', async () => {
-    const res = await fetch('http://localhost:3001/menus');
+    const res = await fetch(`${DB_BASE_URL}/menus`);
     return res.json();
   });
 }
 
 export function useMenuDishInfo(menuName: string) {
   return useQuery(['menus', menuName], async () => {
-    const res = await fetch(`http://localhost:3001/menus?menu_name=${menuName}`);
+    const res = await fetch(`${DB_BASE_URL}/menus?menu_name=${menuName}`);
     return res.json();
   });
 }
 
 export function useDishInfoIngredient(dishInfoName: string) {
   return useQuery(['ingredients', dishInfoName], async () => {
-    const res = await fetch(`http://localhost:3001/ingredients?dish_info_name=${dishInfoName}`);
+    const res = await fetch(`${DB_BASE_URL}/ingredients?dish_info_name=${dishInfoName}`);
     return res.json();
   });
 }
