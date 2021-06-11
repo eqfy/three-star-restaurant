@@ -8,7 +8,7 @@ import EmployeePage from './EmployeePage';
 import DemoPage from './DemoPage';
 
 import '../styles/App.css';
-import OrderPage from './OrderPage';
+import OrderPage from './OrderPage/OrderPage';
 
 const queryClient = new QueryClient();
 
