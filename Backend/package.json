@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/server.js",
-    "start:dev": "nodemon  --ext ts,tsx --ignore '*.test.ts' --delay 1 --exec yarn start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "CPSC 304 S21 Team 20",
