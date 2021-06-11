@@ -1,7 +1,7 @@
 import { Button, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import { useHistory } from 'react-router';
 import AppBar from '@material-ui/core/AppBar';
 import React from 'react';
-import { useHistory } from 'react-router';
 
 interface NavBarProps {}
 
@@ -26,10 +26,14 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
         <Button className={classes.button} color="inherit" onClick={() => history.push('/menus')}>
           Menus
         </Button>
-        <Button className={classes.button} color="inherit" onClick={() => history.push('/')}>
+        <Button
+          className={classes.button}
+          color="inherit"
+          onClick={() => history.push('/employees')}
+        >
           Employees
         </Button>
-        <Button className={classes.button} color="inherit" onClick={() => history.push('/')}>
+        <Button className={classes.button} color="inherit" onClick={() => history.push('/orders')}>
           Orders
         </Button>
       </Toolbar>

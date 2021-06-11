@@ -1,13 +1,13 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-import backgroundImage from '../assets/background-image.jpg';
-import { useUserRole } from '../hooks/useUserRole';
 import { useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import { useUserRole } from '../hooks/useUserRole';
+
+import backgroundImage from '../assets/background-image.jpg';
 
 export default function DemoPage() {
   const classes = useStyles();
