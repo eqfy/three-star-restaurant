@@ -5,7 +5,7 @@ import { getDishInfoInMenu, getMenus } from './routes/menus';
 import { getEmployee } from './routes/employees';
 import { getDishInfo } from './routes/dishinfo';
 import { getDishInfoIngredients, getIngredients } from './routes/ingredients';
-import { deleteOrder, projectOrders, getOrders, updateOrder } from './routes/orders';
+import { deleteOrder, projectOrders, getOrders, updateOrder, getOrderCount } from './routes/orders';
 
 const app = express();
 app.use(express.json()); // for parsing application/json
@@ -58,5 +58,8 @@ app.post('/updateorder', (req, res) => {
 });
 app.post('/projectorders', (req, res) => {
     projectOrders(req, res);
+});
+app.get('/ordercount', (req, res) => {
+    getOrderCount(req, res);
 });
 export default app;
