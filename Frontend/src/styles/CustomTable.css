@@ -1,0 +1,12 @@
+[class*='MTableToolbar-title'] > h6 {
+  font-size: 18px;
+}
+
+div[class*='MTableToolbar-root'] {
+  min-height: 48px;
+}
+
+th.MuiTableCell-root.MuiTableCell-head {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
