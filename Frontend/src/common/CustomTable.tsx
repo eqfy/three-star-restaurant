@@ -15,9 +15,12 @@ import {
   Remove,
   ViewColumn,
 } from '@material-ui/icons';
-import { forwardRef } from 'react';
+import MaterialTable, { MaterialTableProps } from 'material-table';
+import { forwardRef, FunctionComponent } from 'react';
 
-export const tableIcons = {
+import '../styles/CustomTable.css';
+
+const tableIcons = {
   Add: forwardRef<SVGSVGElement>((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef<SVGSVGElement>((props, ref) => <Check {...props} ref={ref} />),
   Clear: forwardRef<SVGSVGElement>((props, ref) => <Clear {...props} ref={ref} />),
@@ -36,3 +39,13 @@ export const tableIcons = {
   ThirdStateCheck: forwardRef<SVGSVGElement>((props, ref) => <Remove {...props} ref={ref} />),
   ViewColumn: forwardRef<SVGSVGElement>((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
+
+type CustomTableProps = {
+  height?: number;
+} & MaterialTableProps<object>;
+
+const CustomTable: FunctionComponent<CustomTableProps> = (props) => {
+  return <MaterialTable icons={tableIcons} options={{ maxBodyHeight: props.height }} {...props} />;
+};
+
+export default CustomTable;

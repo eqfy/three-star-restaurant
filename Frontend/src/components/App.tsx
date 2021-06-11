@@ -8,6 +8,7 @@ import EmployeePage from './EmployeePage';
 import DemoPage from './DemoPage';
 
 import '../styles/App.css';
+import OrderPage from './OrderPage/OrderPage';
 
 const queryClient = new QueryClient();
 
@@ -27,7 +28,7 @@ function App() {
             </Route>
             <Route path="/orders">
               <NavBar />
-              {/* TODO: put orders page here */}
+              <OrderPage />
             </Route>
             <Route path="/">
               <DemoPage />

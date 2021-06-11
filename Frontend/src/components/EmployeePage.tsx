@@ -7,10 +7,9 @@ import {
   makeStyles,
   Paper,
 } from '@material-ui/core';
-import MaterialTable from 'material-table';
 import { FunctionComponent, useState } from 'react';
 import { useGetEmployee } from '../hooks/employee';
-import { tableIcons } from './MaterialTableConstants';
+import CustomTable from '../common/CustomTable';
 
 const useStyles = makeStyles({
   page: {
@@ -47,7 +46,7 @@ const EmployeePage: FunctionComponent = (props) => {
 
   return (
     <div className={classes.page}>
-      <Paper className={classes.ckboxWrapper}>
+      <Paper className={classes.ckboxWrapper} elevation={2}>
         <FormControl component="fieldset" className={classes.ckboxForm}>
           <FormLabel component="legend">Select an employee type</FormLabel>
           <FormGroup row>
@@ -71,7 +70,7 @@ const EmployeePage: FunctionComponent = (props) => {
         </FormControl>
       </Paper>
       <div className={classes.table}>
-        <MaterialTable
+        <CustomTable
           columns={[
             { title: 'ID', field: 'eid' },
             { title: 'Name', field: 'name' },
@@ -81,7 +80,6 @@ const EmployeePage: FunctionComponent = (props) => {
           ]}
           data={employee}
           title="Employees"
-          icons={tableIcons}
         />
       </div>
     </div>
