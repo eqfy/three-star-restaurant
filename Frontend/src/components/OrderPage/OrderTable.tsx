@@ -2,8 +2,8 @@ import { makeStyles } from '@material-ui/core';
 import { FunctionComponent } from 'react';
 import CustomTable from '../../common/CustomTable';
 import { GetOrders } from '../../hooks/order';
-// import { GetOrders, UpdateOrder, DeleteOrder, ProjectOrders, GetOrderCount } from '../../hooks/order';
 import { Order } from '../../types/order';
+import { DB_BASE_URL } from '../../common/constants';
 
 const useStyles = makeStyles({
   table: {
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 const OrderTable: FunctionComponent = (props) => {
   const classes = useStyles();
   const { data } = GetOrders();
-  console.log(data);
+
   return (
     <div className={classes.table}>
       <CustomTable
@@ -28,17 +28,47 @@ const OrderTable: FunctionComponent = (props) => {
         title="Orders"
         editable={{
           onRowAdd: newData =>
-            new Promise((resolve, reject) => {
-              //TODO: add new row
-            }),
+          new Promise(async (resolve, reject) => {
+            await fetch(`${DB_BASE_URL}/addorder`,{
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(newData)
+            }).then(res => {
+              resolve(res.json);
+            }).catch(err => {
+              reject(err);
+            });
+          }),
+
           onRowUpdate: (newData, oldData) =>
-          new Promise((resolve, reject) => {
-              // TODO: update row 
-              // UpdateOrder(((newData as Order).oid) as number, newData);  
+          new Promise(async (resolve, reject) => {
+            const queryParams = new URLSearchParams();
+            queryParams.set('oid',`${(oldData as Order).oid}`);
+            await fetch(`${DB_BASE_URL}/updateorder?` + queryParams,{
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(newData)
+            }).then(res => {
+              console.log(res.json);
+              resolve(res.json);
+            }).catch(err => {
+              reject(err);
+            }); 
             }),
-          onRowDelete: oldData =>
-            new Promise((resolve, reject) => {
-              // TODO: delete row
+            
+          onRowDelete: oldData => 
+            new Promise(async (resolve, reject) => {
+              const queryParams = new URLSearchParams();
+              queryParams.set('oid',`${(oldData as Order).oid}`);
+              await fetch(`${DB_BASE_URL}/deleteorder?` + queryParams).then(res => {
+                resolve(res.json);
+              }).catch(err => {
+                reject(err);
+              });
             }),
         }}
       />
