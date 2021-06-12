@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { FunctionComponent } from 'react';
 import CustomTable from '../../common/CustomTable';
-import { GetOrders } from '../../hooks/order';
+import { useGetOrders } from '../../hooks/order';
 import { Order } from '../../types/order';
 import { DB_BASE_URL } from '../../common/constants';
 import { useMutation } from 'react-query';
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 
 const OrderTable: FunctionComponent = (props) => {
   const classes = useStyles();
-  const { data, refetch} = GetOrders();
+  const { data, refetch} = useGetOrders();
 
   const deleteOrder = useMutation(async (oid) => {
     const queryParams = new URLSearchParams();
