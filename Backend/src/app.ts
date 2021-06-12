@@ -6,7 +6,7 @@ import { getEmployee } from './routes/employees';
 import { getDishInfo, getDishInfoOrderCount } from './routes/dishinfo';
 import { getDishInfoIngredients, getIngredients } from './routes/ingredients';
 import { deleteOrder, projectOrders, getOrders, updateOrder, getOrderCount } from './routes/orders';
-import { getOrderDishOrderItemCount, getTotalDishOrderItemCount } from './routes/dishorderitem';
+import { getOrderDishOrderItemCount, getTotalDishOrderItemCount } from './routes/dishOrderItems';
 
 const app = express();
 app.use(express.json()); // for parsing application/json
