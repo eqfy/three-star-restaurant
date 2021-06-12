@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 
 const OrderTable: FunctionComponent = (props) => {
   const classes = useStyles();
-  const { data } = GetOrders();
+  const { data, refetch} = GetOrders();
 
   return (
     <div className={classes.table}>
@@ -36,6 +36,7 @@ const OrderTable: FunctionComponent = (props) => {
               },
               body: JSON.stringify(newData)
             }).then(res => {
+              refetch();
               resolve(res.json);
             }).catch(err => {
               reject(err);
@@ -53,18 +54,19 @@ const OrderTable: FunctionComponent = (props) => {
               },
               body: JSON.stringify(newData)
             }).then(res => {
-              console.log(res.json);
+              refetch();
               resolve(res.json);
             }).catch(err => {
               reject(err);
             }); 
             }),
-            
+
           onRowDelete: oldData => 
             new Promise(async (resolve, reject) => {
               const queryParams = new URLSearchParams();
               queryParams.set('oid',`${(oldData as Order).oid}`);
               await fetch(`${DB_BASE_URL}/deleteorder?` + queryParams).then(res => {
+                refetch();
                 resolve(res.json);
               }).catch(err => {
                 reject(err);
