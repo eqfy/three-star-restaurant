@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Grid, makeStyles, Typography } from '@material-ui/core';
-import { useDishInfoIngredient, useMenuDishInfo } from '../hooks/api';
+import { useDishInfoIngredient, useDishInfoOrderCount, useMenuDishInfo } from '../hooks/api';
 
 const useStyles = makeStyles({
   card: {
@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   price: {
     fontSize: 14,
   },
-  ingredient: {
+  footerFont: {
     fontSize: 11,
     color: 'grey',
   },
@@ -26,7 +26,7 @@ export const IngredientList: React.FC<IngredientListProps> = ({ menuName }) => {
   return data ? (
     data.map((i: any) => (
       <Typography
-        className={classes.ingredient}
+        className={classes.footerFont}
         component="p"
       >{`${i.name}: ${i.amount}${i.unit}`}</Typography>
     ))
@@ -42,6 +42,7 @@ interface MenuPageProps {
 export const MenuPage: React.FC<MenuPageProps> = ({ menuName }) => {
   const classes = useStyles();
   const { data: menuData } = useMenuDishInfo(menuName);
+  const { data: orderCountData } = useDishInfoOrderCount();
 
   return (
     <Grid container spacing={2}>
@@ -59,6 +60,12 @@ export const MenuPage: React.FC<MenuPageProps> = ({ menuName }) => {
                 <Typography component="p">{dishInfo.description}</Typography>
                 <hr />
                 <IngredientList menuName={dishInfo.name} />
+                <Typography className={classes.footerFont} component="p">
+                  {orderCountData &&
+                    `Times ordered: ${
+                      dishInfo.name in orderCountData ? orderCountData[dishInfo.name] : '0'
+                    }`}
+                </Typography>
               </CardContent>
             </Card>
           </Grid>

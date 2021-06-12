@@ -3,15 +3,23 @@ import cors from 'cors';
 import { testDBConnection } from './routes/testDBConnection';
 import { getDishInfoInMenu, getMenus } from './routes/menus';
 import { getEmployee } from './routes/employees';
-import { getDishInfo } from './routes/dishinfo';
+import { getDishInfo, getDishInfoOrderCount } from './routes/dishinfo';
 import { getDishInfoIngredients, getIngredients } from './routes/ingredients';
-import { deleteOrder, projectOrders, getOrders, updateOrder, getOrderCount } from './routes/orders';
 import {
     addDishOrderItem,
     deleteDishOrderItem,
     getDishOrderItems,
     updateDishOrderItem,
 } from './routes/dishOrderItems';
+import { getOrderDishOrderItemCount, getTotalDishOrderItemCount } from './routes/dishOrderItems';
+import {
+    deleteOrder,
+    projectOrders,
+    getOrders,
+    updateOrder,
+    getOrderCount,
+    addOrder,
+} from './routes/orders';
 
 const app = express();
 app.use(express.json()); // for parsing application/json
@@ -41,6 +49,10 @@ app.get('/dishinfo', (req, res) => {
     getDishInfo(res);
 });
 
+app.get('/dishinfoordercount', (req, res) => {
+    getDishInfoOrderCount(res);
+});
+
 app.get('/ingredients', (req, res) => {
     if (req.query.dish_info_name) {
         getDishInfoIngredients(res, `${req.query.dish_info_name}`);
@@ -56,15 +68,21 @@ app.get('/employee', (req, res) => {
 app.get('/orders', (req, res) => {
     getOrders(req, res);
 });
+app.post('/addorder', (req, res) => {
+    addOrder(req, res);
+});
 app.get('/deleteorder', (req, res) => {
     deleteOrder(req, res);
 });
+
 app.post('/updateorder', (req, res) => {
     updateOrder(req, res);
 });
+
 app.post('/projectorders', (req, res) => {
     projectOrders(req, res);
 });
+
 app.get('/ordercount', (req, res) => {
     getOrderCount(req, res);
 });
@@ -84,6 +102,12 @@ app.put('/orderItem/:dishId', (req, res) => {
 });
 app.delete('/orderItem/:dishId', (req, res) => {
     deleteDishOrderItem(req, res);
+});
+app.get('/dishorderitemcount', (req, res) => {
+    getOrderDishOrderItemCount(res);
+});
+app.get('/dishorderitemtotalcount', (req, res) => {
+    getTotalDishOrderItemCount(res);
 });
 
 export default app;
