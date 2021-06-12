@@ -17,13 +17,13 @@ const OrderTable: FunctionComponent = (props) => {
   const classes = useStyles();
   const { data, refetch} = useGetOrders();
 
-  const deleteOrder = useMutation(async (oid) => {
+  const useDeleteOrder = useMutation(async (oid) => {
     const queryParams = new URLSearchParams();
     queryParams.set('oid',`${oid}`);
     return await fetch(`${DB_BASE_URL}/deleteorder?` + queryParams);
   });
 
-  const updateOrder = useMutation(async (options: {oldData: any, newData: any}) => {
+  const useUpdateOrder = useMutation(async (options: {oldData: any, newData: any}) => {
     const {oldData, newData} = options;
     const queryParams = new URLSearchParams();
     queryParams.set('oid',`${oldData.oid}`);
@@ -36,7 +36,7 @@ const OrderTable: FunctionComponent = (props) => {
     });
   });
 
-  const addOrder = useMutation(async (newData: Order) => {
+  const useAddOrder = useMutation(async (newData: Order) => {
     await fetch(`${DB_BASE_URL}/addorder`,{
       method: 'POST',
       headers: {
@@ -59,7 +59,7 @@ const OrderTable: FunctionComponent = (props) => {
         title="Orders"
         editable={{
           onRowAdd: newData =>
-          addOrder.mutateAsync(newData)
+          useAddOrder.mutateAsync(newData)
             .then(res => 
               refetch())
             .catch(err => 
@@ -67,14 +67,14 @@ const OrderTable: FunctionComponent = (props) => {
 
 
           onRowUpdate: (newData, oldData) =>
-            updateOrder.mutateAsync({oldData, newData})
+            useUpdateOrder.mutateAsync({oldData, newData})
             .then(res => 
               refetch())
             .catch(err => 
               console.error(err)),
 
           onRowDelete: oldData => 
-          deleteOrder.mutateAsync(((oldData as Order).oid) as void)
+          useDeleteOrder.mutateAsync(((oldData as Order).oid) as void)
           .then(res => 
             refetch())
           .catch(err => 
