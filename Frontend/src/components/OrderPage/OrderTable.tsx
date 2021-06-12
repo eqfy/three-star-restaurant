@@ -4,6 +4,8 @@ import CustomTable from '../../common/CustomTable';
 import { GetOrders } from '../../hooks/order';
 import { Order } from '../../types/order';
 import { DB_BASE_URL } from '../../common/constants';
+import { useMutation } from 'react-query';
+
 
 const useStyles = makeStyles({
   table: {
@@ -14,6 +16,35 @@ const useStyles = makeStyles({
 const OrderTable: FunctionComponent = (props) => {
   const classes = useStyles();
   const { data, refetch} = GetOrders();
+
+  const deleteOrder = useMutation(async (oid) => {
+    const queryParams = new URLSearchParams();
+    queryParams.set('oid',`${oid}`);
+    return await fetch(`${DB_BASE_URL}/deleteorder?` + queryParams);
+  });
+
+  const updateOrder = useMutation(async (options: {oldData: any, newData: any}) => {
+    const {oldData, newData} = options;
+    const queryParams = new URLSearchParams();
+    queryParams.set('oid',`${oldData.oid}`);
+    return await fetch(`${DB_BASE_URL}/updateorder?` + queryParams,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newData)
+    });
+  });
+
+  const addOrder = useMutation(async (newData: Order) => {
+    await fetch(`${DB_BASE_URL}/addorder`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newData)
+    })
+  });
 
   return (
     <div className={classes.table}>
@@ -28,50 +59,26 @@ const OrderTable: FunctionComponent = (props) => {
         title="Orders"
         editable={{
           onRowAdd: newData =>
-          new Promise(async (resolve, reject) => {
-            await fetch(`${DB_BASE_URL}/addorder`,{
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(newData)
-            }).then(res => {
-              refetch();
-              resolve(res.json);
-            }).catch(err => {
-              reject(err);
-            });
-          }),
+          addOrder.mutateAsync(newData)
+            .then(res => 
+              refetch())
+            .catch(err => 
+              console.error(err)),
+
 
           onRowUpdate: (newData, oldData) =>
-          new Promise(async (resolve, reject) => {
-            const queryParams = new URLSearchParams();
-            queryParams.set('oid',`${(oldData as Order).oid}`);
-            await fetch(`${DB_BASE_URL}/updateorder?` + queryParams,{
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(newData)
-            }).then(res => {
-              refetch();
-              resolve(res.json);
-            }).catch(err => {
-              reject(err);
-            }); 
-            }),
+            updateOrder.mutateAsync({oldData, newData})
+            .then(res => 
+              refetch())
+            .catch(err => 
+              console.error(err)),
 
           onRowDelete: oldData => 
-            new Promise(async (resolve, reject) => {
-              const queryParams = new URLSearchParams();
-              queryParams.set('oid',`${(oldData as Order).oid}`);
-              await fetch(`${DB_BASE_URL}/deleteorder?` + queryParams).then(res => {
-                refetch();
-                resolve(res.json);
-              }).catch(err => {
-                reject(err);
-              });
-            }),
+          deleteOrder.mutateAsync(((oldData as Order).oid) as void)
+          .then(res => 
+            refetch())
+          .catch(err => 
+            console.error(err))
         }}
       />
     </div>
