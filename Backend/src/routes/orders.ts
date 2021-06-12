@@ -14,6 +14,10 @@ export function getOrders(request: ExpressRequest, response: ExpressResponse): v
 
 export function deleteOrder(request: ExpressRequest, response: ExpressResponse): void {
     const oid = request.query.oid;
+    if(!oid){
+        response.status(400).send('Request missing order id');
+        return;
+    } 
     db.query(
         `DELETE FROM restaurant_order WHERE oid=$1`,
         [oid]
@@ -29,7 +33,10 @@ export function deleteOrder(request: ExpressRequest, response: ExpressResponse):
 
 export function updateOrder(request: ExpressRequest, response: ExpressResponse): void {
     const oid = request.query.oid;
-    if(!oid) response.status(400).send('Request missing order id');
+    if(!oid){
+        response.status(400).send('Request missing order id');
+        return;
+    } 
     const attributes = request.body;
     const query = `UPDATE restaurant_order SET ${updateQueryHelper(attributes)} WHERE oid = $1`;
     db.query(
