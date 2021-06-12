@@ -93,3 +93,25 @@ export function getOrderCount(request: ExpressRequest, response: ExpressResponse
         response.status(500).send('Error: ORDER COUNT query failed').end();
     });
 }
+
+export function addOrder(request: ExpressRequest, response: ExpressResponse): void {
+    let query = `INSERT INTO restaurant_order (`;
+    const values = request.body;
+    for (const property in values){
+        query+=`${property},`;
+    }
+    query = `${query.slice(0, -1)}) VALUES (`;
+    for (const property in values){
+        const value = values[property];
+        query += `${(typeof value == "string")? "'" + value + "'": value},`;
+    }
+    query = `${query.slice(0, -1)});`;
+    db.query(query)
+    .then((res) => {
+        response.status(201).send("Order added");
+    })
+    .catch((err) => {
+        console.error(err);
+        response.status(500).send('Error: INSERT ORDER query failed').end();
+    });
+}
