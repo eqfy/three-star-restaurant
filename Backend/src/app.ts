@@ -3,7 +3,7 @@ import cors from 'cors';
 import { testDBConnection } from './routes/testDBConnection';
 import { getDishInfoInMenu, getMenus } from './routes/menus';
 import { getEmployee } from './routes/employees';
-import { getDishInfo } from './routes/dishinfo';
+import { getDishInfo, getDishInfoOrderCount } from './routes/dishinfo';
 import { getDishInfoIngredients, getIngredients } from './routes/ingredients';
 import { deleteOrder, projectOrders, getOrders, updateOrder, getOrderCount } from './routes/orders';
 
@@ -33,6 +33,10 @@ app.get('/menus', (req, res) => {
 
 app.get('/dishinfo', (req, res) => {
     getDishInfo(res);
+});
+
+app.get('/dishinfoordercount', (req, res) => {
+    getDishInfoOrderCount(res);
 });
 
 app.get('/ingredients', (req, res) => {

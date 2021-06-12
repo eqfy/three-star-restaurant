@@ -21,3 +21,15 @@ export function useDishInfoIngredient(dishInfoName: string) {
     return res.json();
   });
 }
+
+export function useDishInfoOrderCount() {
+  return useQuery(['dishinfoordercount'], async () => {
+    const res = await fetch(`${DB_BASE_URL}/dishinfoordercount`);
+    const json = await res.json();
+    console.log(`direct from link: ${JSON.stringify(json)}`);
+    return json.reduce((acc: any, val: any) => {
+      acc[val.dish_info_name] = val.count;
+      return acc;
+    }, {});
+  });
+}
