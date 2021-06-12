@@ -71,7 +71,10 @@ app.get('/ordercount', (req, res) => {
 
 // OrderItem
 app.get('/orderItem', (req, res) => {
-    getDishOrderItems(res);
+    getDishOrderItems(req, res);
+});
+app.get('/orderItem/:orderId', (req, res) => {
+    getDishOrderItems(req, res);
 });
 app.post('/orderItem', (req, res) => {
     addDishOrderItem(req, res);

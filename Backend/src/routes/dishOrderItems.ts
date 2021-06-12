@@ -12,8 +12,12 @@ const dishOrderItemSchema = [
     'chef_id',
 ];
 
-export function getDishOrderItems(response: ExpressResponse): void {
-    db.query('SELECT * FROM dish_order_item ORDER BY dish_id')
+export function getDishOrderItems(request: ExpressRequest, response: ExpressResponse): void {
+    const orderId = request.params.orderId;
+    const query = `SELECT * FROM dish_order_item ${
+        orderId ? `WHERE order_id = ${orderId} ` : ''
+    } ORDER BY dish_id`;
+    db.query(query)
         .then((res) => response.status(200).send(res.rows))
         .catch((err) => {
             console.error(err);

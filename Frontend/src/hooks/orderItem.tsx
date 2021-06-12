@@ -11,11 +11,15 @@ export interface OrderItem {
   chef_id: number;
 }
 
-export function useGetOrderItem() {
-  return useQuery<OrderItem[]>('orderItems', async () => {
-    console.log('orderItems ran');
+export const ALL = -1;
 
-    const res = await fetch(`${DB_BASE_URL}/orderItem`);
+export function useGetOrderItem(orderId = ALL) {
+  return useQuery<OrderItem[]>(['orderItems', orderId], async () => {
+    let requestURL = `${DB_BASE_URL}/orderItem`;
+    if (orderId && orderId !== ALL) {
+      requestURL += `/${orderId}`;
+    }
+    const res = await fetch(requestURL);
     return res.json();
   });
 }
