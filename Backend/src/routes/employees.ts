@@ -25,7 +25,6 @@ export function getEmployee(request: ExpressRequest, response: ExpressResponse):
     queryString = `${queryString} ORDER BY eid`;
     db.query(queryString)
         .then((res) => {
-            // console.log(res);
             response.status(201).send(res.rows);
         })
         .catch((err) => {

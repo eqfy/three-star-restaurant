@@ -6,7 +6,16 @@ import { getEmployee } from './routes/employees';
 import { getDishInfo, getDishInfoOrderCount } from './routes/dishinfo';
 import { getDishInfoIngredients, getIngredients } from './routes/ingredients';
 import { getOrderDishOrderItemCount, getTotalDishOrderItemCount } from './routes/dishOrderItems';
-import { deleteOrder, projectOrders, getOrders, updateOrder, getOrderCount, addOrder } from './routes/orders';
+import {
+    deleteOrder,
+    projectOrders,
+    getOrders,
+    updateOrder,
+    getOrderCount,
+    addOrder,
+    selectOrder,
+    divideOrderByChef,
+} from './routes/orders';
 
 const app = express();
 app.use(express.json()); // for parsing application/json
@@ -69,7 +78,12 @@ app.post('/addorder', (req, res) => {
 app.get('/deleteorder', (req, res) => {
     deleteOrder(req, res);
 });
-
+app.post('/selectOrders', (req, res) => {
+    selectOrder(req, res);
+});
+app.get('/divideOrderByChef', (req, res) => {
+    divideOrderByChef(req, res);
+});
 app.post('/updateorder', (req, res) => {
     updateOrder(req, res);
 });
