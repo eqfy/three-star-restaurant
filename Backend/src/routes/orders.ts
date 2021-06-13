@@ -136,9 +136,7 @@ export function selectOrder(request: ExpressRequest, response: ExpressResponse):
 }
 
 export function divideOrderByChef(request: ExpressRequest, response: ExpressResponse): void {
-    // const denominator = request.body;
     // Finds an order that contains order items cooked by all chefs
-
     let query = `
     SELECT * FROM restaurant_order o WHERE NOT EXISTS 
     (SELECT * FROM chef c WHERE NOT EXISTS

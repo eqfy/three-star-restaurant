@@ -127,6 +127,9 @@ INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info
 INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10007,10004,NULL,1,'In Progress','Marishrimp',8) ON CONFLICT DO NOTHING;
 INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10008,10004,NULL,1,'Ready','AppetizerB',2) ON CONFLICT DO NOTHING;
 INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10009,10005,NULL,3,'Ready','Tempura',3) ON CONFLICT DO NOTHING;
+INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10010,10001,NULL,2,'Complete','Tempura',12) ON CONFLICT DO NOTHING;
+INSERT INTO dish_order_item(dish_id,order_id,description,amount,status,dish_info_name,chef_id) VALUES (10011,10001,NULL,2,'Complete','Coattree',15) ON CONFLICT DO NOTHING;
+
 
 INSERT INTO menu_dish_info(menu_name,dish_info_name) VALUES ('Starters','Seasoned Fresh') ON CONFLICT DO NOTHING;
 INSERT INTO menu_dish_info(menu_name,dish_info_name) VALUES ('Starters','Fries') ON CONFLICT DO NOTHING;
