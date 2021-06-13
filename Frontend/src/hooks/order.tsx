@@ -9,7 +9,7 @@ export interface Order {
 }
 
 export function useGetOrders() {
-  return useQuery(['orders'], async () => {
+  return useQuery<Order[]>(['orders'], async () => {
     const res = await fetch(`${DB_BASE_URL}/orders?`);
     return res.json();
   });

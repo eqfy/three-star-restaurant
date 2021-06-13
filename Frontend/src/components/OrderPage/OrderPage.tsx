@@ -1,10 +1,11 @@
 import { Grid, makeStyles } from '@material-ui/core';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useState } from 'react';
 import OrderControlPanel from './OrderControlPanel';
 import OrderItemTable from './OrderItemTable';
 import OrderTable from './OrderTable';
 
 import '../../styles/Common.css';
+import { ALL_ORDER } from '../../hooks/orderItem';
 
 const useStyles = makeStyles({
   page: {
@@ -17,6 +18,9 @@ const useStyles = makeStyles({
 
 const OrderPage: FunctionComponent = (props) => {
   const classes = useStyles();
+
+  const [currOrder, setCurrOrder] = useState(ALL_ORDER);
+
   return (
     <section className={classes.page}>
       <Grid container>
@@ -26,10 +30,10 @@ const OrderPage: FunctionComponent = (props) => {
         <Grid item xs={12} md>
           <Grid container direction="column">
             <Grid item xs>
-              <OrderTable />
+              <OrderTable currOrder={currOrder} setCurrOrder={setCurrOrder} />
             </Grid>
             <Grid item xs>
-              <OrderItemTable />
+              <OrderItemTable currOrder={currOrder} />
             </Grid>
           </Grid>
         </Grid>

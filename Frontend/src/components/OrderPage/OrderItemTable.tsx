@@ -14,10 +14,15 @@ const useStyles = makeStyles({
   },
 });
 
-const OrderItemTable: FunctionComponent = (props) => {
+interface OrderItemTableProps {
+  currOrder: number;
+}
+
+const OrderItemTable: FunctionComponent<OrderItemTableProps> = (props) => {
+  const { currOrder } = props;
   const classes = useStyles();
 
-  const { data: orderItems = [] } = useGetOrderItem();
+  const { data: orderItems = [] } = useGetOrderItem(currOrder);
   const addOrderItem = useAddOrderItem();
   const delOrderItem = useDeleteOrderItem();
   const updateOrderItem = useUpdateOrderItem();
