@@ -17,16 +17,22 @@ export enum ORDER_MODE {
 
 export interface OrderModeOptions {
   mode: ORDER_MODE;
-  selection?: {};
+  selection?: SelectionCondition[];
   projection?: {};
+}
+
+export interface SelectionCondition {
+  name: string;
+  value: any;
+  comparator: '=' | '!=' | '>' | '>=' | '<' | '<=' | 'LIKE' | 'IN';
 }
 
 export function useGetOrders(options: OrderModeOptions = { mode: ORDER_MODE.DEFAULT }) {
   return useQuery<Order[]>(['orders', options], async () => {
-    const { mode, selection = {}, projection = {} } = options;
+    const { mode, selection = [], projection = {} } = options;
     switch (mode) {
       case ORDER_MODE.SELECTION:
-        return selectOrders();
+        return selectOrders(selection);
       case ORDER_MODE.PROJECTION:
         return projectOrders();
       case ORDER_MODE.DIVISION:
@@ -41,9 +47,14 @@ async function getOrders() {
   let res = await fetch(`${DB_BASE_URL}/orders`);
   return res.json();
 }
-async function selectOrders() {
-  // Stub
-  const res = await fetch(`${DB_BASE_URL}/orders`);
+async function selectOrders(conditions: SelectionCondition[]) {
+  const res = await fetch(`${DB_BASE_URL}/selectOrders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(conditions),
+  });
   return res.json();
 }
 async function projectOrders() {
