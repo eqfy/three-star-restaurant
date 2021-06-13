@@ -1,11 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { FunctionComponent } from 'react';
 import CustomTable from '../../common/CustomTable';
-import { useGetOrders } from '../../hooks/order';
-import { Order } from '../../types/order';
-import { DB_BASE_URL } from '../../common/constants';
-import { useMutation } from 'react-query';
-
+import { useAddOrder, useDeleteOrder, useGetOrders, useUpdateOrder } from '../../hooks/order';
 
 const useStyles = makeStyles({
   table: {
@@ -15,36 +11,11 @@ const useStyles = makeStyles({
 
 const OrderTable: FunctionComponent = (props) => {
   const classes = useStyles();
-  const { data, refetch} = useGetOrders();
+  const { data } = useGetOrders();
 
-  const useDeleteOrder = useMutation(async (oid) => {
-    const queryParams = new URLSearchParams();
-    queryParams.set('oid',`${oid}`);
-    return await fetch(`${DB_BASE_URL}/deleteorder?` + queryParams);
-  });
-
-  const useUpdateOrder = useMutation(async (options: {oldData: any, newData: any}) => {
-    const {oldData, newData} = options;
-    const queryParams = new URLSearchParams();
-    queryParams.set('oid',`${oldData.oid}`);
-    return await fetch(`${DB_BASE_URL}/updateorder?` + queryParams,{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newData)
-    });
-  });
-
-  const useAddOrder = useMutation(async (newData: Order) => {
-    await fetch(`${DB_BASE_URL}/addorder`,{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newData)
-    })
-  });
+  const deleteOrder = useDeleteOrder();
+  const updateOrder = useUpdateOrder();
+  const addOrder = useAddOrder();
 
   return (
     <div className={classes.table}>
@@ -52,33 +23,15 @@ const OrderTable: FunctionComponent = (props) => {
         columns={[
           { title: 'ID', field: 'oid' },
           { title: 'Status', field: 'status' },
-          { title: 'Created On', field: 'created_on', type:'date' },
+          { title: 'Created On', field: 'created_on', type: 'date' },
           { title: 'Waiter ID', field: 'waiter_id' },
         ]}
         data={data}
         title="Orders"
         editable={{
-          onRowAdd: newData =>
-          useAddOrder.mutateAsync(newData)
-            .then(res => 
-              refetch())
-            .catch(err => 
-              console.error(err)),
-
-
-          onRowUpdate: (newData, oldData) =>
-            useUpdateOrder.mutateAsync({oldData, newData})
-            .then(res => 
-              refetch())
-            .catch(err => 
-              console.error(err)),
-
-          onRowDelete: oldData => 
-          useDeleteOrder.mutateAsync(((oldData as Order).oid) as void)
-          .then(res => 
-            refetch())
-          .catch(err => 
-            console.error(err))
+          onRowAdd: (newData: any) => addOrder.mutateAsync(newData),
+          onRowUpdate: (newData: any) => updateOrder.mutateAsync(newData),
+          onRowDelete: (oldData: any) => deleteOrder.mutateAsync(oldData.oid),
         }}
       />
     </div>
