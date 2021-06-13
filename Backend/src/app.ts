@@ -19,6 +19,8 @@ import {
     updateOrder,
     getOrderCount,
     addOrder,
+    selectOrder,
+    divideOrderByChef,
 } from './routes/orders';
 
 const app = express();
@@ -74,7 +76,12 @@ app.post('/addorder', (req, res) => {
 app.get('/deleteorder', (req, res) => {
     deleteOrder(req, res);
 });
-
+app.post('/selectOrders', (req, res) => {
+    selectOrder(req, res);
+});
+app.get('/divideOrderByChef', (req, res) => {
+    divideOrderByChef(req, res);
+});
 app.post('/updateorder', (req, res) => {
     updateOrder(req, res);
 });
