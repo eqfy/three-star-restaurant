@@ -18,7 +18,7 @@ export enum ORDER_MODE {
 export interface OrderModeOptions {
   mode: ORDER_MODE;
   selection?: SelectionCondition[];
-  projection?: {};
+  projection?: string[];
 }
 
 export interface SelectionCondition {
@@ -29,12 +29,12 @@ export interface SelectionCondition {
 
 export function useGetOrders(options: OrderModeOptions = { mode: ORDER_MODE.DEFAULT }) {
   return useQuery<Order[]>(['orders', options], async () => {
-    const { mode, selection = [], projection = {} } = options;
+    const { mode, selection = [], projection = [] } = options;
     switch (mode) {
       case ORDER_MODE.SELECTION:
         return selectOrders(selection);
       case ORDER_MODE.PROJECTION:
-        return projectOrders();
+        return projectOrders(projection);
       case ORDER_MODE.DIVISION:
         return divideOrdersByChef();
       default:
@@ -57,7 +57,7 @@ async function selectOrders(conditions: SelectionCondition[]) {
   });
   return res.json();
 }
-async function projectOrders() {
+async function projectOrders(projections: string[]) {
   // Stub
   const res = await fetch(`${DB_BASE_URL}/orders`);
   return res.json();
@@ -139,8 +139,4 @@ export function useUpdateOrder() {
       },
     }
   );
-}
-
-export function useProjectOrders() {
-  // TODO: Project Orders
 }

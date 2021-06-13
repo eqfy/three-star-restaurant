@@ -26,16 +26,18 @@ const useStyles = makeStyles({
     minWidth: 120,
     padding: '6px',
   },
-  modeFormControl: {
+  // Division related
+  divisionContainer: {
     marginTop: '20px',
   },
+  // Selection related
   selectionContainer: {
     marginTop: '20px',
     display: 'flex',
     flexDirection: 'column',
     flex: '1',
   },
-  conditionContainer: {
+  selectionCondContainer: {
     display: 'flex',
     flexWrap: 'nowrap',
     width: '100%',
@@ -114,7 +116,7 @@ const DivisionControls: FunctionComponent<ControlPanelProps> = (props) => {
   };
 
   return (
-    <FormControl component="fieldset" className={classes.modeFormControl}>
+    <FormControl component="fieldset" className={classes.divisionContainer}>
       <FormGroup>
         <FormControlLabel
           control={<Checkbox checked={checked} onChange={handleChange} name="division" />}
@@ -129,6 +131,14 @@ const DivisionControls: FunctionComponent<ControlPanelProps> = (props) => {
 };
 
 const SelectionControls: FunctionComponent<ControlPanelProps> = (props) => {
+  const columns = [
+    { name: 'oid', value: 'ID' },
+    { name: 'status', value: 'Status' },
+    { name: 'created_on', value: 'Created On' },
+    { name: 'waiter_id', value: 'Waiter Id' },
+  ];
+  const comparators = ['=', '!=', '>', '>=', '<', '<=', 'LIKE', 'IN'];
+
   const { setOrderMode } = props;
   const [selectConds, setSelectConds] = useState<SelectionCondition>({
     name: '',
@@ -156,16 +166,10 @@ const SelectionControls: FunctionComponent<ControlPanelProps> = (props) => {
       selection: [selectConds],
     });
   };
-  const columns = [
-    { name: 'oid', value: 'ID' },
-    { name: 'status', value: 'Status' },
-    { name: 'created_on', value: 'Created On' },
-    { name: 'waiter_id', value: 'Waiter Id' },
-  ];
-  const comparators = ['=', '!=', '>', '>=', '<', '<=', 'LIKE', 'IN'];
+
   return (
     <div className={classes.selectionContainer}>
-      <div className={classes.conditionContainer}>
+      <div className={classes.selectionCondContainer}>
         <Select
           className={classes.selectionElement}
           value={selectConds.name}
