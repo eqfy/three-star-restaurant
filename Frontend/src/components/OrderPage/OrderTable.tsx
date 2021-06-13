@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import CustomTable from '../../common/CustomTable';
 import {
-  ORDER_MODE,
+  OrderModeOptions,
   useAddOrder,
   useDeleteOrder,
   useGetOrders,
@@ -19,8 +19,8 @@ const useStyles = makeStyles({
 interface OrderTableProps {
   currOrder: number;
   setCurrOrder: Dispatch<SetStateAction<number>>;
-  orderMode: ORDER_MODE;
-  setOrderMode: Dispatch<SetStateAction<ORDER_MODE>>;
+  orderMode: OrderModeOptions;
+  setOrderMode: Dispatch<SetStateAction<OrderModeOptions>>;
 }
 
 const OrderTable: FunctionComponent<OrderTableProps> = (props) => {

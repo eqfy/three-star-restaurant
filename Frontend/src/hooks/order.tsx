@@ -15,8 +15,15 @@ export enum ORDER_MODE {
   DIVISION,
 }
 
-export function useGetOrders(mode: ORDER_MODE) {
-  return useQuery<Order[]>(['orders', mode], async () => {
+export interface OrderModeOptions {
+  mode: ORDER_MODE;
+  selection?: {};
+  projection?: {};
+}
+
+export function useGetOrders(options: OrderModeOptions = { mode: ORDER_MODE.DEFAULT }) {
+  return useQuery<Order[]>(['orders', options], async () => {
+    const { mode, selection = {}, projection = {} } = options;
     switch (mode) {
       case ORDER_MODE.SELECTION:
         return selectOrders();
@@ -31,20 +38,21 @@ export function useGetOrders(mode: ORDER_MODE) {
 }
 
 async function getOrders() {
-  let res = await fetch(`${DB_BASE_URL}/orders?`);
+  let res = await fetch(`${DB_BASE_URL}/orders`);
   return res.json();
 }
 async function selectOrders() {
-  const res = await fetch(`${DB_BASE_URL}/orders?`);
+  // Stub
+  const res = await fetch(`${DB_BASE_URL}/orders`);
   return res.json();
 }
 async function projectOrders() {
   // Stub
-  const res = await fetch(`${DB_BASE_URL}/orders?`);
+  const res = await fetch(`${DB_BASE_URL}/orders`);
   return res.json();
 }
 async function divideOrdersByChef() {
-  const res = await fetch(`${DB_BASE_URL}/orders?`);
+  const res = await fetch(`${DB_BASE_URL}/divideOrderByChef`);
   return res.json();
 }
 

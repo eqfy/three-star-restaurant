@@ -6,7 +6,7 @@ import OrderTable from './OrderTable';
 
 import '../../styles/Common.css';
 import { ALL_ORDER } from '../../hooks/orderItem';
-import { ORDER_MODE } from '../../hooks/order';
+import { OrderModeOptions, ORDER_MODE } from '../../hooks/order';
 
 const useStyles = makeStyles({
   page: {
@@ -21,7 +21,7 @@ const OrderPage: FunctionComponent = (props) => {
   const classes = useStyles();
 
   const [currOrder, setCurrOrder] = useState(ALL_ORDER);
-  const [orderMode, setOrderMode] = useState(ORDER_MODE.DEFAULT);
+  const [orderMode, setOrderMode] = useState<OrderModeOptions>({ mode: ORDER_MODE.DEFAULT });
 
   return (
     <section className={classes.page}>
