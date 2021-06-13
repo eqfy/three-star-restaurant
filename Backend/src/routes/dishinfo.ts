@@ -11,7 +11,9 @@ export function getDishInfo(response: ExpressResponse): void {
 }
 
 export function getDishInfoOrderCount(response: ExpressResponse): void {
-    db.query('SELECT dish_info_name, COUNT(*) FROM dish_order_item GROUP BY dish_info_name')
+    db.query(
+        'SELECT dish_info_name, SUM(amount) AS count FROM dish_order_item GROUP BY dish_info_name'
+    )
         .then((res) => response.status(201).send(res.rows))
         .catch((err) => {
             console.error(err);
