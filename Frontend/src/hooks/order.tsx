@@ -24,7 +24,7 @@ export interface OrderModeOptions {
 export interface SelectionCondition {
   name: string;
   value: any;
-  comparator: '=' | '!=' | '>' | '>=' | '<' | '<=' | 'LIKE' | 'IN';
+  comparator: '=' | '!=' | '>' | '>=' | '<' | '<=' | 'LIKE';
 }
 
 export function useGetOrders(options: OrderModeOptions = { mode: ORDER_MODE.DEFAULT }) {
