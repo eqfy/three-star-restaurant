@@ -5,8 +5,21 @@ import { getDishInfoInMenu, getMenus } from './routes/menus';
 import { getEmployee } from './routes/employees';
 import { getDishInfo, getDishInfoOrderCount } from './routes/dishinfo';
 import { getDishInfoIngredients, getIngredients } from './routes/ingredients';
+import {
+    addDishOrderItem,
+    deleteDishOrderItem,
+    getDishOrderItems,
+    updateDishOrderItem,
+} from './routes/dishOrderItems';
 import { getOrderDishOrderItemCount, getTotalDishOrderItemCount } from './routes/dishOrderItems';
-import { deleteOrder, projectOrders, getOrders, updateOrder, getOrderCount, addOrder } from './routes/orders';
+import {
+    deleteOrder,
+    projectOrders,
+    getOrders,
+    updateOrder,
+    getOrderCount,
+    addOrder,
+} from './routes/orders';
 
 const app = express();
 app.use(express.json()); // for parsing application/json
@@ -48,14 +61,6 @@ app.get('/ingredients', (req, res) => {
     }
 });
 
-app.get('/dishorderitemcount', (req, res) => {
-    getOrderDishOrderItemCount(res);
-});
-
-app.get('/dishorderitemtotalcount', (req, res) => {
-    getTotalDishOrderItemCount(res);
-});
-
 app.get('/employee', (req, res) => {
     getEmployee(req, res);
 });
@@ -80,6 +85,29 @@ app.post('/projectorders', (req, res) => {
 
 app.get('/ordercount', (req, res) => {
     getOrderCount(req, res);
+});
+
+// OrderItem
+app.get('/orderItem', (req, res) => {
+    getDishOrderItems(req, res);
+});
+app.get('/orderItem/:orderId', (req, res) => {
+    getDishOrderItems(req, res);
+});
+app.post('/orderItem', (req, res) => {
+    addDishOrderItem(req, res);
+});
+app.put('/orderItem/:dishId', (req, res) => {
+    updateDishOrderItem(req, res);
+});
+app.delete('/orderItem/:dishId', (req, res) => {
+    deleteDishOrderItem(req, res);
+});
+app.get('/dishorderitemcount', (req, res) => {
+    getOrderDishOrderItemCount(res);
+});
+app.get('/dishorderitemtotalcount', (req, res) => {
+    getTotalDishOrderItemCount(res);
 });
 
 export default app;
