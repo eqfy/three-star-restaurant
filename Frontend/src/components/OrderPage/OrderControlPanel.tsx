@@ -137,7 +137,7 @@ const SelectionControls: FunctionComponent<ControlPanelProps> = (props) => {
     { name: 'created_on', value: 'Created On' },
     { name: 'waiter_id', value: 'Waiter Id' },
   ];
-  const comparators = ['=', '!=', '>', '>=', '<', '<=', 'LIKE', 'IN'];
+  const comparators = ['=', '!=', '>', '>=', '<', '<=', 'LIKE'];
 
   const { setOrderMode } = props;
   const [selectConds, setSelectConds] = useState<SelectionCondition>({
