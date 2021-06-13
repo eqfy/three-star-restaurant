@@ -11,12 +11,12 @@ export interface OrderItem {
   chef_id: number;
 }
 
-export const ALL = -1;
+export const ALL_ORDER = -1;
 
-export function useGetOrderItem(orderId = ALL) {
+export function useGetOrderItem(orderId = ALL_ORDER) {
   return useQuery<OrderItem[]>(['orderItems', orderId], async () => {
     let requestURL = `${DB_BASE_URL}/orderItem`;
-    if (orderId && orderId !== ALL) {
+    if (orderId && orderId !== ALL_ORDER) {
       requestURL += `/${orderId}`;
     }
     const res = await fetch(requestURL);

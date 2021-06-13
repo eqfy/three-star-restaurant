@@ -10,14 +10,19 @@ import {
 
 const useStyles = makeStyles({
   table: {
-    padding: '6px 20px 6px 10px',
+    padding: '6px 20px',
   },
 });
 
-const OrderItemTable: FunctionComponent = (props) => {
+interface OrderItemTableProps {
+  currOrder: number;
+}
+
+const OrderItemTable: FunctionComponent<OrderItemTableProps> = (props) => {
+  const { currOrder } = props;
   const classes = useStyles();
 
-  const { data: orderItems = [] } = useGetOrderItem();
+  const { data: orderItems = [] } = useGetOrderItem(currOrder);
   const addOrderItem = useAddOrderItem();
   const delOrderItem = useDeleteOrderItem();
   const updateOrderItem = useUpdateOrderItem();
