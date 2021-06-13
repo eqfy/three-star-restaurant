@@ -10,7 +10,7 @@ import {
 
 const useStyles = makeStyles({
   table: {
-    padding: '6px 20px 6px 10px',
+    padding: '6px 20px',
   },
 });
 

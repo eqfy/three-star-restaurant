@@ -8,11 +8,44 @@ export interface Order {
   waiter_id: number;
 }
 
-export function useGetOrders() {
-  return useQuery<Order[]>(['orders'], async () => {
-    const res = await fetch(`${DB_BASE_URL}/orders?`);
-    return res.json();
+export enum ORDER_MODE {
+  DEFAULT,
+  SELECTION,
+  PROJECTION,
+  DIVISION,
+}
+
+export function useGetOrders(mode: ORDER_MODE) {
+  return useQuery<Order[]>(['orders', mode], async () => {
+    switch (mode) {
+      case ORDER_MODE.SELECTION:
+        return selectOrders();
+      case ORDER_MODE.PROJECTION:
+        return projectOrders();
+      case ORDER_MODE.DIVISION:
+        return divideOrdersByChef();
+      default:
+        return getOrders();
+    }
   });
+}
+
+async function getOrders() {
+  let res = await fetch(`${DB_BASE_URL}/orders?`);
+  return res.json();
+}
+async function selectOrders() {
+  const res = await fetch(`${DB_BASE_URL}/orders?`);
+  return res.json();
+}
+async function projectOrders() {
+  // Stub
+  const res = await fetch(`${DB_BASE_URL}/orders?`);
+  return res.json();
+}
+async function divideOrdersByChef() {
+  const res = await fetch(`${DB_BASE_URL}/orders?`);
+  return res.json();
 }
 
 export function useGetOrderCount() {

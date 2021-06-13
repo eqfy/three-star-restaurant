@@ -1,25 +1,33 @@
 import { makeStyles } from '@material-ui/core';
 import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import CustomTable from '../../common/CustomTable';
-import { useAddOrder, useDeleteOrder, useGetOrders, useUpdateOrder } from '../../hooks/order';
+import {
+  ORDER_MODE,
+  useAddOrder,
+  useDeleteOrder,
+  useGetOrders,
+  useUpdateOrder,
+} from '../../hooks/order';
 import { ALL_ORDER } from '../../hooks/orderItem';
 
 const useStyles = makeStyles({
   table: {
-    padding: '6px 20px 6px 10px',
+    padding: '6px 20px',
   },
 });
 
 interface OrderTableProps {
   currOrder: number;
   setCurrOrder: Dispatch<SetStateAction<number>>;
+  orderMode: ORDER_MODE;
+  setOrderMode: Dispatch<SetStateAction<ORDER_MODE>>;
 }
 
 const OrderTable: FunctionComponent<OrderTableProps> = (props) => {
-  const { currOrder, setCurrOrder } = props;
+  const { currOrder, setCurrOrder, orderMode } = props;
   const classes = useStyles();
 
-  const { data = [] } = useGetOrders();
+  const { data = [] } = useGetOrders(orderMode);
   const deleteOrder = useDeleteOrder();
   const updateOrder = useUpdateOrder();
   const addOrder = useAddOrder();
