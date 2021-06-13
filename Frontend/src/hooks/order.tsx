@@ -1,20 +1,20 @@
 import { useQuery } from 'react-query';
 import { DB_BASE_URL } from '../common/constants';
 
-export function GetOrders() {
+export function useGetOrders() {
   return useQuery(['orders'], async () => {
     const res = await fetch(`${DB_BASE_URL}/orders?`);
     return res.json();
   });
 }
 
-export function GetOrderCount(){
+export function useGetOrderCount(){
   return useQuery(['getOrderCount'], async () => {
     const res = await fetch(`${DB_BASE_URL}/ordercount`);
     return res.json();
   });
 }
 
-export function ProjectOrders(){
+export function useProjectOrders(){
   // TODO: Project Orders
 }
