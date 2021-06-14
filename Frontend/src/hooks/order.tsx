@@ -58,8 +58,13 @@ async function selectOrders(conditions: SelectionCondition[]) {
   return res.json();
 }
 async function projectOrders(projections: string[]) {
-  // Stub
-  const res = await fetch(`${DB_BASE_URL}/orders`);
+  const res = await fetch(`${DB_BASE_URL}/projectorders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(projections),
+  });
   return res.json();
 }
 async function divideOrdersByChef() {

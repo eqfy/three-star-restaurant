@@ -6,11 +6,14 @@ import React from 'react';
 interface NavBarProps {}
 
 const useStyles = makeStyles({
+  appbar: {
+    background: '#618685',
+  },
   button: {
     marginRight: '25px',
     marginLeft: '25px',
   },
-  title: { flexGrow: 1 },
+  title: { flexGrow: 1, textTransform: 'uppercase' },
 });
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
@@ -18,7 +21,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   const classes = useStyles();
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" className={classes.appbar}>
       <Toolbar>
         <Typography className={classes.title} variant="h6">
           Three Star Restaurant
