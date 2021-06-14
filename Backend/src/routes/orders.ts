@@ -57,7 +57,7 @@ function updateQueryHelper(attributes) {
 }
 
 export function projectOrders(request: ExpressRequest, response: ExpressResponse): void {
-    let columns = request.body.columns;
+    let columns = request.body;
     let query = `SELECT `;
     columns.forEach((column) => {
         query += `${column},`;

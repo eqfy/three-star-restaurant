@@ -95,6 +95,7 @@ const OrderControlPanel: FunctionComponent<ControlPanelProps> = (props) => {
         <div className={classes.formControl}>
           {shownMode === ORDER_MODE.SELECTION && <SelectionControls {...props} />}
           {shownMode === ORDER_MODE.DIVISION && <DivisionControls {...props} />}
+          {shownMode === ORDER_MODE.PROJECTION && <ProjectionControls {...props} />}
         </div>
       </Paper>
     </div>
@@ -205,6 +206,54 @@ const SelectionControls: FunctionComponent<ControlPanelProps> = (props) => {
         <Button onClick={handleClick}>Select</Button>
       </div>
     </div>
+  );
+};
+
+const ProjectionControls: FunctionComponent<ControlPanelProps> = (props) => {
+  const { setOrderMode } = props;
+  const initialState:string[] = [];
+  let [projectionColumns, setProjectionColumns] = useState(initialState);
+
+  const handleChange = (event:any) => {
+    const column:string = event.target.name;
+    if(!projectionColumns.includes(column)){
+      projectionColumns.push(column);
+    } else {
+      projectionColumns = projectionColumns.filter(e => e !== column);
+    }
+    setProjectionColumns(projectionColumns);
+
+    if (projectionColumns.length !== 0) {
+      setOrderMode({ mode: ORDER_MODE.PROJECTION, projection:projectionColumns });
+    } else {
+      setOrderMode({ mode: ORDER_MODE.DEFAULT});
+    }
+  };
+
+  return (
+    <FormControl component="fieldset">
+    <FormHelperText>
+        Toggle the checkboxes below to select columns to show in the order table
+      </FormHelperText>
+      <FormGroup>
+        <FormControlLabel
+        control={<Checkbox checked={projectionColumns.includes('oid')} onChange={handleChange} name="oid" />}
+          label="Order ID"
+        />
+    <FormControlLabel
+        control={<Checkbox checked={projectionColumns.includes('status')} onChange={handleChange} name="status" />}
+          label="Status"
+        />
+        <FormControlLabel
+        control={<Checkbox checked={projectionColumns.includes('created_on')} onChange={handleChange} name="created_on" />}
+          label="Created On"
+        />
+        <FormControlLabel
+        control={<Checkbox checked={projectionColumns.includes('waiter_id')} onChange={handleChange} name="waiter_id" />}
+          label="Waiter ID"
+        />
+      </FormGroup>
+    </FormControl>
   );
 };
 
