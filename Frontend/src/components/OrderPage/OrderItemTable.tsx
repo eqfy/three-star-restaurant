@@ -7,6 +7,7 @@ import {
   useGetOrderItem,
   useUpdateOrderItem,
 } from '../../hooks/orderItem';
+import { useUserRole } from '../../hooks/useUserRole';
 
 const useStyles = makeStyles({
   table: {
@@ -26,6 +27,7 @@ const OrderItemTable: FunctionComponent<OrderItemTableProps> = (props) => {
   const addOrderItem = useAddOrderItem();
   const delOrderItem = useDeleteOrderItem();
   const updateOrderItem = useUpdateOrderItem();
+  const role = useUserRole();
 
   return (
     <div className={classes.table}>
@@ -41,6 +43,8 @@ const OrderItemTable: FunctionComponent<OrderItemTableProps> = (props) => {
         ]}
         data={orderItems}
         editable={{
+          isEditable: getEditPerms(role.userRole),
+          isDeletable: getDelPerms(role.userRole),
           onRowAdd: (newData: any) => addOrderItem.mutateAsync(newData),
           onRowDelete: (oldData: any) => delOrderItem.mutateAsync(oldData.dish_id),
           onRowUpdate: (newData: any) => updateOrderItem.mutateAsync(newData),
@@ -49,6 +53,14 @@ const OrderItemTable: FunctionComponent<OrderItemTableProps> = (props) => {
       />
     </div>
   );
+};
+
+const getEditPerms = (role: string) => {
+  return () => role === 'Manager' || role === 'Waiter';
+};
+
+const getDelPerms = (role: string) => {
+  return () => role === 'Manager' || role === 'Waiter';
 };
 
 export default OrderItemTable;
