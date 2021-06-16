@@ -83,7 +83,7 @@ const OrderTable: FunctionComponent<OrderTableProps> = (props) => {
     columns = [
       { title: 'Order ID', field: 'oid', type: 'numeric' },
       { title: 'Status', field: 'status', type: 'string' },
-      { title: 'Created On', field: 'created_on', type: 'date' },
+      { title: 'Created On', field: 'created_on', type: 'datetime' },
       { title: 'Waiter ID', field: 'waiter_id', type: 'numeric' },
       { title: 'Order Items', field: 'order_item_count', type: 'numeric' },
     ];
