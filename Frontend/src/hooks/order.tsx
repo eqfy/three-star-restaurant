@@ -6,6 +6,7 @@ export interface Order {
   status: string;
   created_on: string;
   waiter_id: number;
+  order_item_count?: number;
 }
 
 export enum ORDER_MODE {
@@ -83,6 +84,7 @@ export function useAddOrder() {
   const queryClient = useQueryClient();
   return useMutation(
     async (newOrder: Order) => {
+      if (newOrder.order_item_count) delete newOrder.order_item_count;
       const res = await fetch(`${DB_BASE_URL}/addorder`, {
         method: 'POST',
         headers: {
@@ -125,6 +127,7 @@ export function useUpdateOrder() {
   const queryClient = useQueryClient();
   return useMutation(
     async (newOrder: Order) => {
+      if (newOrder.order_item_count) delete newOrder.order_item_count;
       const queryParams = new URLSearchParams();
       queryParams.set('oid', `${newOrder.oid}`);
       const res = await fetch(`${DB_BASE_URL}/updateorder?` + queryParams, {
