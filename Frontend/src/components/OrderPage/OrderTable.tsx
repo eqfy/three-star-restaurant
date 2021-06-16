@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { Dispatch, FunctionComponent, SetStateAction } from 'react';
 import CustomTable from '../../common/CustomTable';
+import { useOrderItemCount } from '../../hooks/api';
 import {
   OrderModeOptions,
   useAddOrder,
@@ -29,6 +30,7 @@ const OrderTable: FunctionComponent<OrderTableProps> = (props) => {
   const classes = useStyles();
 
   const { data = [] } = useGetOrders(orderMode);
+  const { data: orderCountData = {} } = useOrderItemCount();
   const deleteOrder = useDeleteOrder();
   const updateOrder = useUpdateOrder();
   const addOrder = useAddOrder();
@@ -83,6 +85,7 @@ const OrderTable: FunctionComponent<OrderTableProps> = (props) => {
       { title: 'Status', field: 'status', type: 'string' },
       { title: 'Created On', field: 'created_on', type: 'date' },
       { title: 'Waiter ID', field: 'waiter_id', type: 'numeric' },
+      { title: 'Order Items', field: 'order_item_count', type: 'numeric' },
     ];
   }
 
@@ -90,7 +93,7 @@ const OrderTable: FunctionComponent<OrderTableProps> = (props) => {
     <div className={classes.table}>
       <CustomTable
         columns={columns}
-        data={data}
+        data={data.map((d) => ({ ...d, order_item_count: orderCountData[d.oid] }))}
         title="Orders"
         editable={{
           isEditable: getEditPerms(role.userRole),
