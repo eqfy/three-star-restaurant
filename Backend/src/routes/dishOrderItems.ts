@@ -26,7 +26,6 @@ export function getDishOrderItems(request: ExpressRequest, response: ExpressResp
 }
 
 export function addDishOrderItem(request: ExpressRequest, response: ExpressResponse): void {
-    console.log(request.body);
     const attributes = request.body;
     const dishId = request.params.dishId;
     const query = `
@@ -38,7 +37,6 @@ export function addDishOrderItem(request: ExpressRequest, response: ExpressRespo
 
     db.query(query)
         .then((res) => {
-            console.log(res);
             response.status(200).send(`dish_order_item - ${dishId} added`);
         })
         .catch((err) => {

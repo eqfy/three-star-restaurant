@@ -14,12 +14,14 @@ export enum ORDER_MODE {
   SELECTION,
   PROJECTION,
   DIVISION,
+  NESTED_AGGREGATION,
 }
 
 export interface OrderModeOptions {
   mode: ORDER_MODE;
   selection?: SelectionCondition[];
   projection?: string[];
+  nestedAggregate?: NestedAggregateCondition;
 }
 
 export interface SelectionCondition {
@@ -28,9 +30,19 @@ export interface SelectionCondition {
   comparator: '=' | '!=' | '>' | '>=' | '<' | '<=' | 'LIKE';
 }
 
+export interface NestedAggregateCondition {
+  comparator: '>' | '>=' | '<' | '<=' | '=';
+  aggregator: 'AVG' | 'MIN' | 'MAX';
+}
+
 export function useGetOrders(options: OrderModeOptions = { mode: ORDER_MODE.DEFAULT }) {
   return useQuery<Order[]>(['orders', options], async () => {
-    const { mode, selection = [], projection = [] } = options;
+    const {
+      mode,
+      selection = [],
+      projection = [],
+      nestedAggregate = { comparator: '>', aggregator: 'AVG' },
+    } = options;
     switch (mode) {
       case ORDER_MODE.SELECTION:
         return selectOrders(selection);
@@ -38,6 +50,8 @@ export function useGetOrders(options: OrderModeOptions = { mode: ORDER_MODE.DEFA
         return projectOrders(projection);
       case ORDER_MODE.DIVISION:
         return divideOrdersByChef();
+      case ORDER_MODE.NESTED_AGGREGATION:
+        return nestedAggregateOrders(nestedAggregate);
       default:
         return getOrders();
     }
@@ -65,6 +79,16 @@ async function projectOrders(projections: string[]) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(projections),
+  });
+  return res.json();
+}
+async function nestedAggregateOrders(conditions: NestedAggregateCondition) {
+  const res = await fetch(`${DB_BASE_URL}/ordersNestedAggregate`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(conditions),
   });
   return res.json();
 }

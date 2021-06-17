@@ -13,7 +13,12 @@ import {
   TextField,
 } from '@material-ui/core';
 import { ChangeEvent, Dispatch, FunctionComponent, SetStateAction, useState } from 'react';
-import { OrderModeOptions, ORDER_MODE, SelectionCondition } from '../../hooks/order';
+import {
+  NestedAggregateCondition,
+  OrderModeOptions,
+  ORDER_MODE,
+  SelectionCondition,
+} from '../../hooks/order';
 
 const useStyles = makeStyles({
   controlPanel: {
@@ -58,6 +63,9 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  aggregationFunction: {
+    minWidth: '80px',
+  },
 });
 
 interface ControlPanelProps {
@@ -90,12 +98,14 @@ const OrderControlPanel: FunctionComponent<ControlPanelProps> = (props) => {
             <MenuItem value={ORDER_MODE.SELECTION}>Selection mode</MenuItem>
             <MenuItem value={ORDER_MODE.PROJECTION}>Projection mode</MenuItem>
             <MenuItem value={ORDER_MODE.DIVISION}>Division mode</MenuItem>
+            <MenuItem value={ORDER_MODE.NESTED_AGGREGATION}>Nested aggregation mode</MenuItem>
           </Select>
         </FormControl>
         <div className={classes.formControl}>
           {shownMode === ORDER_MODE.SELECTION && <SelectionControls {...props} />}
           {shownMode === ORDER_MODE.DIVISION && <DivisionControls {...props} />}
           {shownMode === ORDER_MODE.PROJECTION && <ProjectionControls {...props} />}
+          {shownMode === ORDER_MODE.NESTED_AGGREGATION && <NestedAggregationControls {...props} />}
         </div>
       </Paper>
     </div>
@@ -209,47 +219,139 @@ const SelectionControls: FunctionComponent<ControlPanelProps> = (props) => {
   );
 };
 
+const NestedAggregationControls: FunctionComponent<ControlPanelProps> = (props) => {
+  const comparators = ['>', '>=', '<', '<=', '='];
+  const aggregators = ['AVG', 'MIN', 'MAX'];
+
+  const { setOrderMode } = props;
+  const [nestedAggregateConds, setNestedAggregateConds] = useState<NestedAggregateCondition>({
+    comparator: '>',
+    aggregator: 'AVG',
+  });
+  const classes = useStyles();
+
+  const handleChange = (
+    event: React.ChangeEvent<{
+      name?: string;
+      value: unknown;
+    }>
+  ) => {
+    const newConds = {
+      ...nestedAggregateConds,
+      [event.target.name as string]: event.target.value,
+    };
+    setNestedAggregateConds(newConds);
+  };
+
+  const handleClick = () => {
+    setOrderMode({
+      mode: ORDER_MODE.NESTED_AGGREGATION,
+      nestedAggregate: nestedAggregateConds,
+    });
+  };
+
+  return (
+    <div className={classes.selectionContainer}>
+      <div className={classes.selectionCondContainer}>
+        Orders with{' '}
+        <Select
+          className={classes.selectionComparator}
+          value={nestedAggregateConds.comparator}
+          name={'comparator'}
+          onChange={handleChange}
+        >
+          {comparators.map((comp) => (
+            <MenuItem key={comp} value={comp}>
+              {comp}
+            </MenuItem>
+          ))}
+        </Select>
+        <Select
+          className={classes.aggregationFunction}
+          value={nestedAggregateConds.aggregator}
+          name={'aggregator'}
+          onChange={handleChange}
+        >
+          {aggregators.map((aggregator) => (
+            <MenuItem key={aggregator} value={aggregator}>
+              {aggregator}
+            </MenuItem>
+          ))}
+        </Select>{' '}
+        order item count
+      </div>
+      <div className={classes.selectionOperationContainer}>
+        <Button onClick={handleClick}>Aggregate</Button>
+      </div>
+    </div>
+  );
+};
+
 const ProjectionControls: FunctionComponent<ControlPanelProps> = (props) => {
   const { setOrderMode } = props;
-  const initialState:string[] = [];
+  const initialState: string[] = [];
   let [projectionColumns, setProjectionColumns] = useState(initialState);
 
-  const handleChange = (event:any) => {
-    const column:string = event.target.name;
-    if(!projectionColumns.includes(column)){
+  const handleChange = (event: any) => {
+    const column: string = event.target.name;
+    if (!projectionColumns.includes(column)) {
       projectionColumns.push(column);
     } else {
-      projectionColumns = projectionColumns.filter(e => e !== column);
+      projectionColumns = projectionColumns.filter((e) => e !== column);
     }
     setProjectionColumns(projectionColumns);
 
     if (projectionColumns.length !== 0) {
-      setOrderMode({ mode: ORDER_MODE.PROJECTION, projection:projectionColumns });
+      setOrderMode({ mode: ORDER_MODE.PROJECTION, projection: projectionColumns });
     } else {
-      setOrderMode({ mode: ORDER_MODE.DEFAULT});
+      setOrderMode({ mode: ORDER_MODE.DEFAULT });
     }
   };
 
   return (
     <FormControl component="fieldset">
-    <FormHelperText>
+      <FormHelperText>
         Toggle the checkboxes below to select columns to show in the order table
       </FormHelperText>
       <FormGroup>
         <FormControlLabel
-        control={<Checkbox checked={projectionColumns.includes('oid')} onChange={handleChange} name="oid" />}
+          control={
+            <Checkbox
+              checked={projectionColumns.includes('oid')}
+              onChange={handleChange}
+              name="oid"
+            />
+          }
           label="Order ID"
         />
-    <FormControlLabel
-        control={<Checkbox checked={projectionColumns.includes('status')} onChange={handleChange} name="status" />}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={projectionColumns.includes('status')}
+              onChange={handleChange}
+              name="status"
+            />
+          }
           label="Status"
         />
         <FormControlLabel
-        control={<Checkbox checked={projectionColumns.includes('created_on')} onChange={handleChange} name="created_on" />}
+          control={
+            <Checkbox
+              checked={projectionColumns.includes('created_on')}
+              onChange={handleChange}
+              name="created_on"
+            />
+          }
           label="Created On"
         />
         <FormControlLabel
-        control={<Checkbox checked={projectionColumns.includes('waiter_id')} onChange={handleChange} name="waiter_id" />}
+          control={
+            <Checkbox
+              checked={projectionColumns.includes('waiter_id')}
+              onChange={handleChange}
+              name="waiter_id"
+            />
+          }
           label="Waiter ID"
         />
       </FormGroup>
