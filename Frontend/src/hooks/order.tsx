@@ -83,8 +83,6 @@ async function projectOrders(projections: string[]) {
   return res.json();
 }
 async function nestedAggregateOrders(conditions: NestedAggregateCondition) {
-  console.log(JSON.stringify(conditions));
-
   const res = await fetch(`${DB_BASE_URL}/ordersNestedAggregate`, {
     method: 'POST',
     headers: {

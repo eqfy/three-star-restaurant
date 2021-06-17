@@ -123,7 +123,6 @@ export function selectOrder(request: ExpressRequest, response: ExpressResponse):
         query += `${name} ${comparator} ${processValue(value)} AND `;
     }
     query = query.slice(0, query.lastIndexOf('AND'));
-    console.log(query);
 
     db.query(query)
         .then((res) => {

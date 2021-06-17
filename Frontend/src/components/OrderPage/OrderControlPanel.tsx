@@ -248,7 +248,6 @@ const NestedAggregationControls: FunctionComponent<ControlPanelProps> = (props) 
       mode: ORDER_MODE.NESTED_AGGREGATION,
       nestedAggregate: nestedAggregateConds,
     });
-    console.log(nestedAggregateConds);
   };
 
   return (
