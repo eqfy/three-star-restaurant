@@ -112,7 +112,7 @@ export interface SelectCondition {
     value: string | number;
     comparator: comparator;
 }
-type comparator = '=' | '!=' | '>' | '>=' | '<' | '<=' | 'LIKE' | 'IN';
+type comparator = '=' | '!=' | '>' | '>=' | '<' | '<=' | 'LIKE';
 
 export function selectOrder(request: ExpressRequest, response: ExpressResponse): void {
     // Only support AND connectives for now
@@ -149,5 +149,36 @@ export function divideOrderByChef(request: ExpressRequest, response: ExpressResp
         .catch((err) => {
             console.error(err);
             response.status(500).send('Error: divideOrderByChef query failed').end();
+        });
+}
+
+export interface NestedAggregateCondition {
+    comparator: '>' | '>=' | '<' | '<=';
+    aggregator: 'AVG' | 'MIN' | 'MAX';
+}
+
+export function getOrdersNestedAggregate(request: ExpressRequest, response: ExpressResponse): void {
+    const conditions: NestedAggregateCondition = request.body;
+    db.query(
+        `
+        SELECT * FROM restaurant_order o WHERE
+        o.oid IN (
+            SELECT doi.order_id
+            FROM dish_order_item doi 
+            GROUP BY order_id 
+            HAVING COUNT(*) ${conditions.comparator} 
+            (SELECT ${conditions.aggregator}(counts) FROM (
+                SELECT COUNT(doi2.order_id) as counts
+                FROM dish_order_item doi2 
+                GROUP BY doi2.order_id
+            ) AS all_order_counts
+            )
+        )
+        `
+    )
+        .then((res) => response.status(201).send(res.rows))
+        .catch((err) => {
+            console.error(err);
+            response.status(500).send('Error: SELECT query failed').end();
         });
 }

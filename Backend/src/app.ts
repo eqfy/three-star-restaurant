@@ -21,6 +21,7 @@ import {
     addOrder,
     selectOrder,
     divideOrderByChef,
+    getOrdersNestedAggregate,
 } from './routes/orders';
 
 const app = express();
@@ -116,5 +117,7 @@ app.get('/dishorderitemcount', (req, res) => {
 app.get('/dishorderitemtotalcount', (req, res) => {
     getTotalDishOrderItemCount(res);
 });
-
+app.post('/ordersNestedAggregate', (req, res) => {
+    getOrdersNestedAggregate(req, res);
+});
 export default app;
