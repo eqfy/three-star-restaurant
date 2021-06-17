@@ -31,7 +31,7 @@ export interface SelectionCondition {
 }
 
 export interface NestedAggregateCondition {
-  comparator: '>' | '>=' | '<' | '<=';
+  comparator: '>' | '>=' | '<' | '<=' | '=';
   aggregator: 'AVG' | 'MIN' | 'MAX';
 }
 

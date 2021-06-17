@@ -153,7 +153,7 @@ export function divideOrderByChef(request: ExpressRequest, response: ExpressResp
 }
 
 export interface NestedAggregateCondition {
-    comparator: '>' | '>=' | '<' | '<=';
+    comparator: '>' | '>=' | '<' | '<=' | '=';
     aggregator: 'AVG' | 'MIN' | 'MAX';
 }
 

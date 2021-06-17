@@ -220,7 +220,7 @@ const SelectionControls: FunctionComponent<ControlPanelProps> = (props) => {
 };
 
 const NestedAggregationControls: FunctionComponent<ControlPanelProps> = (props) => {
-  const comparators = ['>', '>=', '<', '<='];
+  const comparators = ['>', '>=', '<', '<=', '='];
   const aggregators = ['AVG', 'MIN', 'MAX'];
 
   const { setOrderMode } = props;
